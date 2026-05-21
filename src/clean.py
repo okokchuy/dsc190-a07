@@ -19,8 +19,9 @@ def main():
 
     # drop rows with non-positive duration_seconds
     df = df[df["duration_seconds"] > 0]
-
-    # normalize timestamp to ISO 8601 (YYYY-MM-DDTHH:MM:SS)
+    df["duration_seconds"] = df["duration_seconds"].astype(int)
+   
+     # normalize timestamp to ISO 8601 (YYYY-MM-DDTHH:MM:SS)
     df["timestamp"] = pd.to_datetime(df["timestamp"], format="mixed", errors="coerce")
     df = df.dropna(subset=["timestamp"])
     df["timestamp"] = df["timestamp"].dt.strftime("%Y-%m-%dT%H:%M:%S")
